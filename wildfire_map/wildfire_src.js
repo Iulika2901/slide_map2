@@ -10,8 +10,8 @@ myLink.addEventListener("keydown", function(event) {
   });
 
 
-  document.addEventListener("keydown", function(event) {
-    if (event.target.tagName !== "INPUT" && event.target.tagName !== "BUTTON" && event.target.tagName !== "TEXTAREA") {
+ myLink.addEventListener("keydown", function(event) {
+    if (event.target.tagName === "INPUT" || event.target.tagName === "BUTTON" || event.target.tagName === "TEXTAREA") {
         event.preventDefault();
     }
 });
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", initializeSlider);
 
 document.getElementById('calculate-button').addEventListener('click', function() {
 
+    let sum = 0;
     const number1 =document.getElementById('number1').value;
     const number2 = parseFloat(document.getElementById('number2').value);
     
@@ -141,14 +142,7 @@ $(function() {
           })
       }, Math.random() * 3e3)
     }
-    $("body").keypress(function() {
-      $('body').addClass("fadeOut");
-      setTimeout(function() {
-        $('#tv').show();
-      }, 1000);
-  
-      console.log("Handler for .keypress() called.");
-    });
+ 
   }())
   var tag = document.createElement('script');
   tag.src = 'https://www.youtube.com/player_api';
