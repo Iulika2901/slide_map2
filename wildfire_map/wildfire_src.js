@@ -17,12 +17,43 @@ myLink.addEventListener("keydown", function(event) {
 });
 
 
+document.getElementById('calculate-button').addEventListener('click', function() {
+  const number1 = document.getElementById('number1').value;
+  const number2 = parseInt(document.getElementById('number2').value);
+  
+  if (number2 < 1890 || number2 > 2300) {
+      document.getElementById('result').innerText = 'enter valid input';
+      return;
+  }
+
+  fetch('http://127.0.0.1:5000/wild', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          country: number1,
+          year: number2
+      })
+  })
+  .then(response => response.json())
+  .then(data => {
+      const predictedArea = data.predicted_area;
+      document.getElementById('result').innerText = `${predictedArea.toFixed(2)} km²`;
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('result').innerText = 'Error calculating prediction';
+  });
+});
+
+
 let slideIndex = 0;
 let intervalId = null;
 
 document.addEventListener("DOMContentLoaded", initializeSlider);
 
-
+/*
 document.getElementById('calculate-button').addEventListener('click', function() {
 
     let sum = 0;
@@ -63,7 +94,7 @@ document.getElementById('calculate-button').addEventListener('click', function()
     document.getElementById('result').innerText = sum;
 });
 
-
+*/
 function initializeSlider(){
    if(slides.length > 0){
        slides[slideIndex].classList.add("displaySlide");
